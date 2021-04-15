@@ -25,6 +25,7 @@
         transform: scale(0);
         transform-origin: top left;
       }
+
       #context-menu.visible {
         transform: scale(1);
         transition: transform 200ms ease-in-out;
@@ -37,12 +38,9 @@
         cursor: pointer;
         border-radius: inherit;
       }
+
       #context-menu .item:hover {
         background: #343434;
-      }
-      #context-menu .item i {
-        display: inline-block;
-        margin-right: 5px;
       }
     </style>
   </head>
@@ -56,26 +54,26 @@
     </div>
 
     <script>
-      const contextElement = document.getElementById("context-menu");
+      const contextMenu = document.getElementById("context-menu");
       const scope = document.querySelector("body");
 
       const normalizePozition = (mouseX, mouseY) => {
         const outOfBoundsOnX =
-          mouseX + contextElement.clientWidth > scope.clientWidth;
+          mouseX + contextMenu.clientWidth > scope.clientWidth;
         const outOfBoundsOnY =
-          mouseY + contextElement.clientHeight > scope.clientHeight;
+          mouseY + contextMenu.clientHeight > scope.clientHeight;
 
         let normalizedX = mouseX;
         let normalizedY = mouseY;
 
         // ? normalzie on X
         if (outOfBoundsOnX) {
-          normalizedX = scope.clientWidth - contextElement.clientWidth;
+          normalizedX = scope.clientWidth - contextMenu.clientWidth;
         }
 
         // ? normalize on Y
         if (outOfBoundsOnY) {
-          normalizedY = scope.clientHeight - contextElement.clientHeight;
+          normalizedY = scope.clientHeight - contextMenu.clientHeight;
         }
 
         return { normalizedX, normalizedY };
@@ -88,19 +86,20 @@
 
         const { normalizedX, normalizedY } = normalizePozition(mouseX, mouseY);
 
-        contextElement.classList.remove("visible");
+        contextMenu.classList.remove("visible");
 
         setTimeout(() => {
-          contextElement.style.top = `${normalizedY}px`;
-          contextElement.style.left = `${normalizedX}px`;
+          contextMenu.style.top = `${normalizedY}px`;
+          contextMenu.style.left = `${normalizedX}px`;
 
-          contextElement.classList.add("visible");
+          contextMenu.classList.add("visible");
         });
       });
 
       scope.addEventListener("click", (e) => {
-        if (e.target.offsetParent != contextElement) {
-          contextElement.classList.remove("visible");
+        // ? close the menu if the user clicks outside of it
+        if (e.target.offsetParent != contextMenu) {
+          contextMenu.classList.remove("visible");
         }
       });
     </script>
