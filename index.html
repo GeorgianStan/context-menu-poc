@@ -88,10 +88,10 @@
 
         contextMenu.classList.remove("visible");
 
-        setTimeout(() => {
-          contextMenu.style.top = `${normalizedY}px`;
-          contextMenu.style.left = `${normalizedX}px`;
+        contextMenu.style.top = `${normalizedY}px`;
+        contextMenu.style.left = `${normalizedX}px`;
 
+        setTimeout(() => {
           contextMenu.classList.add("visible");
         });
       });
