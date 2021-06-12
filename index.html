@@ -59,11 +59,14 @@
 
       const normalizePozition = (mouseX, mouseY) => {
         // ? compute what is the mouse position relative to the container element (scope)
-        const {
+        let {
           left: scopeOffsetX,
           top: scopeOffsetY,
         } = scope.getBoundingClientRect();
-
+        
+        scopeOffsetX = scopeOffsetX < 0 ? 0 : scopeOffsetX;
+        scopeOffsetY = scopeOffsetY < 0 ? 0 : scopeOffsetY;
+       
         const scopeX = mouseX - scopeOffsetX;
         const scopeY = mouseY - scopeOffsetY;
 
